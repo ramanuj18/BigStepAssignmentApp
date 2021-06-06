@@ -1,5 +1,7 @@
 package com.example.bigstepassignmentapp.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -41,4 +43,89 @@ data class Video (
     val primaryGenreName : String?=null,
     val contentAdvisoryRating : String?=null,
     val isStreamable : Boolean?=null
-)
+): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(trackId)
+        parcel.writeString(wrapperType)
+        parcel.writeString(kind)
+        parcel.writeValue(artistId)
+        parcel.writeValue(collectionId)
+        parcel.writeString(artistName)
+        parcel.writeString(collectionName)
+        parcel.writeString(trackName)
+        parcel.writeString(collectionCensoredName)
+        parcel.writeString(trackCensoredName)
+        parcel.writeString(artistViewUrl)
+        parcel.writeString(collectionViewUrl)
+        parcel.writeString(trackViewUrl)
+        parcel.writeString(previewUrl)
+        parcel.writeString(artworkUrl30)
+        parcel.writeString(artworkUrl60)
+        parcel.writeString(artworkUrl100)
+        parcel.writeValue(collectionPrice)
+        parcel.writeValue(trackPrice)
+        parcel.writeString(releaseDate)
+        parcel.writeString(collectionExplicitness)
+        parcel.writeString(trackExplicitness)
+        parcel.writeValue(discCount)
+        parcel.writeValue(discNumber)
+        parcel.writeValue(trackCount)
+        parcel.writeValue(trackNumber)
+        parcel.writeValue(trackTimeMillis)
+        parcel.writeString(country)
+        parcel.writeString(currency)
+        parcel.writeString(primaryGenreName)
+        parcel.writeString(contentAdvisoryRating)
+        parcel.writeValue(isStreamable)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Video> {
+        override fun createFromParcel(parcel: Parcel): Video {
+            return Video(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Video?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

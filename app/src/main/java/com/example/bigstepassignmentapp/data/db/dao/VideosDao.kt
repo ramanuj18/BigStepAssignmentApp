@@ -1,10 +1,7 @@
 package com.example.bigstepassignmentapp.data.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.bigstepassignmentapp.data.model.Video
 
 /**
@@ -18,4 +15,7 @@ interface VideosDao {
 
     @Query("select * from video")
     fun selectAll(): LiveData<List<Video>>
+
+    @Delete
+    fun deleteVideo(video: Video):Int
 }

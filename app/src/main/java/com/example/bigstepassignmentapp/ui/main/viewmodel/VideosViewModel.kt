@@ -27,6 +27,8 @@ class VideosViewModel @Inject constructor(
 
     fun insertVideo(video: Video) = videoRepository.insertVideo(video)
 
+    fun deleteVideo(video: Video) = videoRepository.deleteVideo(video)
+
     fun fetchVideos() {
         viewModelScope.launch {
             _videoResponse.postValue(Resource.loading(null))

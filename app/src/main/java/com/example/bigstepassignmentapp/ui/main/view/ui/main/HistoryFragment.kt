@@ -1,5 +1,8 @@
 package com.example.bigstepassignmentapp.ui.main.view.ui.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,15 +45,34 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = VideoRecyclerAdapter(onItemClick = ::onItemClick)
+        adapter = VideoRecyclerAdapter(onClick = ::onItemClick)
         binding.recyclerViewVideo.adapter = adapter
         viewModel = (activity as TabbedActivity).videoViewModel
 
         observeData()
     }
+    //event, 1 for click event and 2 for long click event
+    private fun onItemClick(video:Video, event: Int){
+        when(event){
+            1->{
+                val intent = Intent(requireContext(), DetailActivity::class.java)
+                intent.putExtra("video",video)
+                startActivity(intent)
+            }
+            2->{
+                deleteAlertDialog(video)
+            }
+        }
+    }
 
-    private fun onItemClick(video:Video){
-
+    private fun deleteAlertDialog(video: Video){
+        AlertDialog.Builder(requireContext()).setMessage("Are you want to delete this video from history?")
+            .setPositiveButton("Yes"
+            ) { dialog, which ->
+                viewModel?.deleteVideo(video)
+            }
+            .setNegativeButton("No",null)
+            .show()
     }
 
     private fun observeData() {

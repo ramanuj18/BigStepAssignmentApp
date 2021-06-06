@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bigstepassignmentapp.R
 import com.example.bigstepassignmentapp.data.model.Video
 import com.example.bigstepassignmentapp.databinding.VideoItemLayoutBinding
+import com.squareup.picasso.Picasso
 
 /**
  * created by Ramanuj Kesharawani on 5/6/21
  */
-class VideoRecyclerAdapter(private var list: List<Video> = listOf(),private val onItemClick:(Video) -> Unit): RecyclerView.Adapter<VideoRecyclerAdapter.ViewHolder>() {
+class VideoRecyclerAdapter(private var list: List<Video> = listOf(),private val onClick:(Video,Int) -> Unit): RecyclerView.Adapter<VideoRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: VideoItemLayoutBinding): RecyclerView.ViewHolder(binding.root){
 
@@ -28,8 +29,15 @@ class VideoRecyclerAdapter(private var list: List<Video> = listOf(),private val 
         val video = list[position]
         holder.binding.video = video
 
+        Picasso.get().load(video.artworkUrl60).into(holder.binding.imageView)
+
         holder.binding.root.setOnClickListener {
-            onItemClick(video)
+            onClick(video,1)
+        }
+
+        holder.binding.root.setOnLongClickListener {
+            onClick(video,2)
+            true
         }
     }
 

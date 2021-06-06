@@ -1,5 +1,7 @@
 package com.example.bigstepassignmentapp.ui.main.view.ui.main
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,33 +46,46 @@ class VideosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = VideoRecyclerAdapter(onItemClick = ::onItemClick)
+        adapter = VideoRecyclerAdapter(onClick = ::onItemClick)
         binding.recyclerViewVideo.adapter = adapter
         viewModel = (activity as TabbedActivity).videoViewModel
 
         observeData()
     }
-
-    private fun onItemClick(video: Video){
-        viewModel?.insertVideo(video)
+    //event, 1 for click event and 2 for long click event
+    private fun onItemClick(video: Video,event: Int){
+        if(event==1){
+            viewModel?.insertVideo(video)
+            val intent = Intent(requireContext(), DetailActivity::class.java)
+            intent.putExtra("video",video)
+            startActivity(intent)
+        }
     }
 
     private fun observeData() {
         viewModel?.videoResponse?.observe(requireActivity(), Observer {
             when (it.status) {
                 Status.ERROR -> {
-
+                    binding.progressBar.visibility = View.GONE
+                    showErrorDialog(it.message.toString())
                 }
 
                 Status.LOADING -> {
-
+                    binding.progressBar.visibility = View.VISIBLE
                 }
 
                 Status.SUCCESS -> {
                     adapter.setVideoList(it.data?.results!!)
+                    binding.progressBar.visibility = View.GONE
                 }
             }
         })
+    }
+
+    private fun showErrorDialog(message:String){
+        AlertDialog.Builder(requireContext()).setMessage(message)
+            .setPositiveButton("OK",null)
+            .show()
     }
 
     companion object {

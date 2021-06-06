@@ -10,14 +10,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="8dp">
+        android:layout_height="80dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view"
-            android:layout_width="94dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_height="match_parent"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,27 +28,33 @@
             android:id="@+id/text_view_song_name"
             android:layout_width="0dp"
             android:text="@{video.trackName}"
+            android:textSize="16dp"
+            android:singleLine="true"
+            android:fontFamily="@font/roboto_black"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_view"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/image_view" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_artist"
             android:layout_width="0dp"
+            android:fontFamily="@font/roboto_regular"
             android:text="@{video.artistName}"
+            android:textSize="14dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_song_name"
             app:layout_constraintStart_toEndOf="@id/image_view" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_price"
+        <View
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_height="1dp"
+            android:background="@color/teal_200"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

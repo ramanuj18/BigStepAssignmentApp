@@ -15,4 +15,6 @@ class VideoRepository @Inject constructor(private val apiService: ApiService, pr
     fun getVideoHistory() = appDatabase.videoDao().selectAll()
 
     fun insertVideo(video: Video) = appDatabase.videoDao().insert(video)
+
+    fun deleteVideo(video: Video) = appDatabase.videoDao().deleteVideo(video)
 }
