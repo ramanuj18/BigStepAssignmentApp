@@ -27,31 +27,7 @@ class TabbedActivity : AppCompatActivity() {
         binding.viewPager.adapter = sectionsPagerAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
 
-        observeData()
-
         videoViewModel.fetchVideos()
 
-    }
-
-    private fun observeData() {
-        videoViewModel.videoResponse.observe(this, Observer {
-            when (it.status) {
-                Status.ERROR -> {
-
-                }
-
-                Status.LOADING -> {
-
-                }
-
-                Status.SUCCESS -> {
-
-                }
-            }
-        })
-
-        videoViewModel.videoHistoryLiveData.observe(this, Observer {
-
-        })
     }
 }
